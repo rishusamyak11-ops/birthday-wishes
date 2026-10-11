@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Birthday Surprise 💗</title>
+
+<style>
+/* ===== 1. MAIN DESIGN ===== */
+:root {
+  --pink: #f7cbd3;
+  --cream: #fff9f0;
+  --brown: #795548;
+  --dark: #5d4037;
+  --accent: #e99aaa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  color: var(--dark);
+  background: linear-gradient(135deg, #fff9f0, #ffe7ed);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.screen {
+  min-height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 25px 18px;
+  position: relative;
+}
+
+.screen.active {
+  display: flex;
+  animation: appear 0.7s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 2. CUTE BEAR ===== */
+.bear {
+  font-size: 110px;
+  margin: 5px;
+  animation: cuddle 2s infinite ease-in-out;
+  filter: drop-shadow(0 7px 5px #79554822);
+}
+.crying-bear {
+  width: 280px;
+  max-width: 85%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 20px;
+}
+
+@keyframes cuddle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg) translateY(-7px); }
+}
+
+h1 {
+  font-size: clamp(28px, 6vw, 44px);
+  margin: 12px 0;
+  color: #9a6571;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.subtitle {
+  max-width: 440px;
+  margin: 8px auto 22px;
+}
+
+/* ===== 3. BUTTONS ===== */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.yes-btn, .gift-btn {
+  color: white;
+  background: linear-gradient(135deg, #e99aaa, #c9798d);
+  box-shadow: 0 5px 15px #d58c9b55;
+}
+
+.no-btn {
+  background: #fff;
+  color: #8b6666;
+  border: 1px solid #f0d5d8;
+}
+
+.back-btn {
+  color: var(--brown);
+  background: #fff;
+  margin-top: 15px;
+}
+
+/* ===== 4. BIRTHDAY SCREEN ===== */
+#birthday {
+  overflow: hidden;
+}
+
+.birthday-card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 520px);
+  padding: 28px 22px;
+  border-radius: 28px;
+  background: #ffffffd9;
+  border: 1px solid #ffffff;
+  box-shadow: 0 12px 45px #bb859322;
+}
+
+.birthday-card h1 {
+  margin-top: 5px;
+}
+
+
+
+.fixed-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 19px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.note {
+  background: #fff7f0;
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 20px;
+  text-align: left;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== 5. FLOATING HEARTS ===== */
+.heart {
+  position: fixed;
+  bottom: -40px;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatUp linear forwards;
+  opacity: 0.75;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  to { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
+}
+
+/* ===== 6. BURSTING CONFETTI ===== */
+.confetti {
+  position: fixed;
+  top: -20px;
+  z-index: 10;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.3;
+  }
+}
+
+.music-box {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 18px;
+  background: #fff3f5;
+}
+
+.music-box audio {
+  width: 100%;
+  max-width: 290px;
+}
+
+.small-text {
+  font-size: 12px;
+  color: #a38383;
+}
+
+
+@media (max-width: 450px) {
+  .bear { font-size: 90px; }
+  .birthday-card { padding: 22px 15px; }
+  .photo-frame { height: 250px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== SCREEN 1: INVITATION ===== -->
+<section id="welcome" class="screen active">
+
+  <div class="bear">🧸</div>
+
+  <h1>Hey,Devi ji! 💗</h1>
+
+  <p class="subtitle">
+    I have a tiny little surprise for you.
+    My teddy is a little shy, but he has something special
+    to give you... 🎁
+    <br><br>
+    <strong>Would you please accept this gift?</strong>
+  </p>
+
+  <div class="buttons">
+    <button class="yes-btn" onclick="acceptGift()">
+      Yes, of course! 💖
+    </button>
+
+    <button class="no-btn" onclick="sayNo()">
+      No 🙈
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ===== SCREEN 2: SAD BEAR ===== -->
+<section id="sad" class="screen">
+
+  <img
+  src="c:\Users\Rishu\Downloads\bear crying.jpg"
+  alt="Crying brown teddy bear"
+  class="crying-bear"
+>
+
+  <h1>Wait... WHY? 😭</h1>
+
+  <p class="subtitle">
+    You clicked NO?! 🥺
+    <br>
+    I prepared this gift
+    with so much love...
+    <br>
+    Please accet it! 💔
+  </p>
+
+  
+<div class="buttons">
+  <button class="yes-btn" onclick="goBack()">
+    Try Again 💗
+  </button>
+</div>
+
+
+</section>
+
+
+<!-- ===== SCREEN 3: BIRTHDAY SURPRISE ===== -->
+<section id="birthday" class="screen">
+
+  <div class="birthday-card">
+
+    <div style="font-size: 45px;">🎉 🎂 🎉</div>
+
+    <h1 id="birthdayTitle">
+      Happy Birthday Devi ji! 💗
+    </h1>
+
+    <p>
+      Today is all about you, Devi ji! 🌷
+      <br>
+      Here's a little something made with love.
+    </p>
+
+    <!-- YOUR PHOTO -->
+    
+<!-- FIXED BIRTHDAY PHOTO -->
+<div class="photo-frame has-photo">
+  <img
+    src="C:\Users\Rishu\Downloads\rsunflower.png"
+    alt="here was your dp maybe it is not uploaded due to some errors."
+    class="fixed-photo"
+    draggable="false"
+  >
+</div>
+
+    <p>
+      A little celebration, a little music,💕
+      and I have your real photo but didn't share it here because 1.I didn't asked for it 2. i don't want to share it
+     with anyone else. 
+    </p>
+
+    <!-- LOFI MUSIC -->
+    <div class="music-box">
+      <p>🎧 A little music for your special day</p>
+
+      <audio id="lofi" controls loop>
+        <source src="C:\Users\Rishu\Downloads\music.mp3" type="audio/mpeg">
+      </audio>
+
+      <div class="small-text">
+        If the music doesn't start automatically,
+        please click the play button above. 🎶
+      </div>
+    </div>
+
+    <!-- REVEAL GIFT -->
+    <div id="giftPrompt">
+      <p>But wait... there's one more thing! 🎁</p>
+
+      <button class="gift-btn" onclick="revealGift()">
+        Open your little gift 💌
+      </button>
+    </div>
+
+    <!-- SECRET BIRTHDAY NOTE -->
+    <div id="secretNote" class="hidden">
+
+      <div style="font-size: 42px;">💌</div>
+
+      <h2 style="color: #bd7e8c;">
+        A little note for you
+      </h2>
+
+      <div class="note" id="personalNote"></div>
+
+      <img src="C:\Users\Rishu\Downloads\memories.jpeg" alt="Our special memory" style="width: 100%;
+       height: 100%; object-fit: cover; border-radius: 19px;">
+  
+
+      <p style="text-align: center;">
+        Thanks for the moments i will never forget! 💗
+      </p>
+      
+
+    </div>
+    <button class="back-btn" onclick="goBack()">
+      ↩ Back to the beginning
+    </button>
+
+  </div>
+
+</section>
+
+
+<script>
+/* ===== 7. PERSONALIZE YOUR WEBSITE HERE ===== */
+
+// Change the name of the birthday person:
+const personName = "Devi ji";
+
+// Write your own personal birthday message:
+const birthdayMessage = `Dear ${personName},
+
+Happy Birthday! 💗
+
+I hope your special day is filled with
+beautiful smiles, little surprises,
+ and countless happy moments.
+
+May this new chapter of your life bring
+you happiness, success, peace, and
+everything your heart wishes for.
+
+Never forget how special you are.
+Keep smiling, keep shining, and
+always be your wonderful self.
+
+Wishing you a fantastic birthday! 💗
+
+Thanks for being such an amazing person in my life.
+Thanks for the love, care, and support you have given me.
+Thanks for the memories which i will cherish forever.
+Thanks for experience and lessons which i will never forget.
+still holding everything you have given me in my heart and will always be
+Thanks for everything
+
+This was a little gift,
+I made for you. 🎂🌷
+
+Happy Birthday once again Devi ji! 💕`;
+
+// Change the main birthday heading:
+document.getElementById("birthdayTitle").textContent =
+  `Happy Birthday, ${personName}! 🎂`;
+
+// Add the birthday message:
+document.getElementById("personalNote").textContent =
+  birthdayMessage;
+
+
+/* ===== 8. SWITCH BETWEEN SCREENS ===== */
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function acceptGift() {
+  showScreen("birthday");
+  startCelebration();
+
+  // Music may require a separate click in some browsers.
+  const music = document.getElementById("lofi");
+  music.play().catch(() => {});
+}
+
+function sayNo() {
+  showScreen("sad");
+}
+
+
+
+function goBack() {
+  showScreen("welcome");
+}
+
+
+/* ===== 9. REVEAL THE SECRET GIFT ===== */
+
+function revealGift() {
+  document.getElementById("giftPrompt").classList.add("hidden");
+  document.getElementById("secretNote").classList.remove("hidden");
+
+  launchConfetti(100);
+
+  document.getElementById("secretNote").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+
+
+/* ===== 10. ADD YOUR OWN PHOTO ===== */
+
+
+  
+
+
+
+/* ===== 11. FLOATING HEARTS ===== */
+
+let heartsStarted = false;
+
+function startCelebration() {
+  if (!heartsStarted) {
+    heartsStarted = true;
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+
+      const symbols = ["💗", "💕", "💖", "🌸", "✨"];
+      heart.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (15 + Math.random() * 22) + "px";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 11000);
+
+    }, 450);
+  }
+
+  launchConfetti(80);
+}
+
+
+/* ===== 12. BURSTING PARTY CONFETTI ===== */
+
+function launchConfetti(amount) {
+  for (let i = 0; i < amount; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti";
+
+    const shapes = ["🎉", "🎊", "💗", "✨", "🌸"];
+    piece.textContent =
+      shapes[Math.floor(Math.random() * shapes.length)];
+
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.fontSize = (14 + Math.random() * 17) + "px";
+    piece.style.animationDuration = (2 + Math.random() * 3) + "s";
+    piece.style.animationDelay = Math.random() * 1.5 + "s";
+
+    document.body.appendChild(piece);
+
+    setTimeout(() => piece.remove(), 6500);
+  }
+}
+</script>
+
+</body>
+</html>
